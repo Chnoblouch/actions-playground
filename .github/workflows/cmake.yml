@@ -8,22 +8,22 @@ jobs:
       matrix:
         include:
         - name: windows-debug
-          os: windows-latest
+          os: windows-2022
           build_config: Debug
         - name: windows-release
-          os: windows-latest
+          os: windows-2022
           build_config: Release
         - name: linux-debug
-          os: ubuntu-latest
+          os: ubuntu-20.04
           build_config: Debug
         - name: linux-release
-          os: ubuntu-latest
+          os: ubuntu-20.04
           build_config: Release
         - name: macos-debug
-          os: macos-latest
+          os: macos-13
           build_config: Debug
         - name: macos-release
-          os: macos-latest
+          os: macos-13
           build_config: Release
 
     runs-on: ${{ matrix.os }}
