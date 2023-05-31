@@ -2,15 +2,29 @@ name: CMake
 
 on: workflow_dispatch
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        cmake_config: [Debug, Release]
+        include:
+        - name: windows-debug
+          os: windows-latest
+          build_config: Debug
+        - name: windows-release
+          os: windows-latest
+          build_config: Release
+        - name: linux-debug
+          os: ubuntu-latest
+          build_config: Debug
+        - name: linux-release
+          os: ubuntu-latest
+          build_config: Release
+        - name: macos-debug
+          os: macos-latest
+          build_config: Debug
+        - name: macos-release
+          os: macos-latest
+          build_config: Release
 
     runs-on: ${{ matrix.os }}
 
@@ -19,14 +33,14 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{ matrix.cmake_config }} -DCMAKE_INSTALL_PREFIX=install
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=install
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{ matrix.cmake_config }} --target install
+      run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_config }} --target install
 
     - name: Archive
       uses: actions/upload-artifact@v3
       with:
-          name: build-${{ matrix.os }}-${{ matrix.cmake_config }}
-          path: install/bin/hello-world.exe
+          name: build-${{ matrix.name }}
+          path: install/**/*
 
