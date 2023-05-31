@@ -7,22 +7,22 @@ jobs:
     strategy:
       matrix:
         include:
-        - name: windows-debug
+        - name: x86_64-windows-debug
           os: windows-2022
           build_config: Debug
-        - name: windows-release
+        - name: x86_64-windows-release
           os: windows-2022
           build_config: Release
-        - name: linux-debug
+        - name: x86_64-linux-debug
           os: ubuntu-20.04
           build_config: Debug
-        - name: linux-release
+        - name: x86_64-linux-release
           os: ubuntu-20.04
           build_config: Release
-        - name: macos-debug
+        - name: x86_64-macos-debug
           os: macos-13
           build_config: Debug
-        - name: macos-release
+        - name: x86_64-macos-release
           os: macos-13
           build_config: Release
 
